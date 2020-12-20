@@ -1,0 +1,655 @@
+---
+title: "Linear Algebra"
+author: "Martin Nwadiugwu"
+date: "9/17/2020"
+output: html_document
+---
+
+```{r setup, row element operations}
+
+knitr::opts_chunk$set(echo = TRUE)
+u <-matrix(c(14,15,12,2,7,6,8,20,9,1,4,11,17,16,18,19), nrow = 4)
+
+u
+E21 = matrix(c(1,0,0,0,
+               -15/14,1,0,0,
+               0,0,1,0,
+               0,0,0,1), nrow = 4, ncol=4,byrow=T)
+E21%*%u
+
+E31 = matrix(c(1,0,0,0,
+               0,1,0,0,
+               -12/14,0,1,0,
+               0,0,0,1), nrow = 4, ncol=4,byrow=T)
+
+E31%*%E21%*%u
+
+E41 = matrix(c(1,0,0,0,
+               0,1,0,0,
+               0,0,1,0,
+               -1/7,0,0,1), nrow = 4, ncol=4,byrow=T)
+
+E41%*%E31%*%E21%*%u
+
+E32 = matrix(c(1,0,0,0,
+               0,1,0,0,
+               0,2/1.5,1,0,
+               0,0,0,1), nrow = 4, ncol=4,byrow=T)
+
+E32%*%E41%*%E31%*%E21%*%u
+
+
+E42 = matrix(c(1,0,0,0,
+               0,1,0,0,
+               0,0,1,0,
+               0,19/1.5,0,1), nrow = 4, ncol=4,byrow=T)
+
+E42%*%E32%*%E41%*%E31%*%E21%*%u
+
+E43 = matrix(c(1,0,0,0,
+               0,1,0,0,
+               0,0,1,0,
+               0,0,-99.761905/15.238095,1), nrow = 4, ncol=4,byrow=T)
+U = E43%*%E42%*%E32%*%E41%*%E31%*%E21%*%u
+round(U)
+P = E43%*%E42%*%E32%*%E41%*%E31%*%E21
+P
+solve(P)
+round(solve(P) %*% U)
+
+u
+
+```
+
+```{r sherman-morrison}
+A = matrix(c(2,4,5,-4,-7,-8,3,4,4), nrow = 3)
+inv(A)
+B = matrix(c(2,4,5,-4,-7,-8,6,4,4), nrow = 3)
+inv(B)
+
+```
+
+
+```{r null space}
+library(pracma)
+
+A3 = matrix(c(1,0,-2,1,1,2,-2,3,-2,1,3,0), nrow = 4)
+A3T = matrix(c(1,1,-2,0,2,1,-2,-2,3,1,3,0), nrow = 3)
+A3T
+rref(A3T)
+
+#or
+A4 = matrix(c(1,0,-2,1,1,2,-2,3,-2,1,3,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1), nrow = 4)
+
+A4
+rref(A4)
+
+#column space
+
+cs = matrix(c(1,0,-2,1,1,2,-2,3,-2,1,3,0), nrow = 4)
+
+cs1 = matrix(c(1,1,-2,0,2,1,-2,-2,3,1,3,0), nrow = 3)
+cs1
+#or
+csa = matrix(c(1,0,-2,1,1,2,-2,3,-2,1,3,0,1,0,0,0,0,1,0,0,0,0,1,0), nrow = 4)
+csa
+
+```
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+```{r cars}
+
+A = matrix(c(1,1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,0,1,0,1), nrow = 5)
+A1 = matrix(c(1,1,1,1,1,1,1,0,1,0,1,1,1,1,0,0,1,0,0,1), nrow = 4)
+
+B = matrix(c(89,67,53,35,20), nrow =5 )
+
+a = matrix(c(1,1,1,1,1,2,3,4), nrow= 4)
+a1 = matrix(c(1,1,1,2,1,3,1,4), nrow = 2)
+b = matrix(c(23,27,30,34), nrow = 4)
+
+w = matrix(c(5,3,3,3,3,3,2,1,3,2,3,2,3,1,2,3,264,191,209,162), nrow =4 )
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, matrix}
+
+
+u <-matrix(c(3,9,-6,3,4,14,0,8,5,17,-1,10,1,6,12,10), nrow = 4)
+
+q = matrix(c(1,0,0,-1,1,0,0,-1,1), nrow = 3)
+v = matrix(c(6,5,3),nrow=3)
+
+A = matrix(c(92,87,103,78,83,141,105,133,199,128,55,134,176,178,70,46), nrow = 4)
+
+
+B = matrix(c(140,158,75,131,109,168,45,187,92,126,16,183, 133,57,110,40), nrow = 4)
+
+B1 = matrix(c(92,87,103,78,83,141,105,133,199,128,55,134,176,178,70,46,140,158,75,131), nrow = 4)
+
+B2 = matrix(c(92,87,103,78,83,141,105,133,199,128,55,134,176,178,70,46,109,168,45,187), nrow = 4)
+
+B3 = matrix(c(92,87,103,78,83,141,105,133,199,128,55,134,176,178,70,46,92,126,16,183), nrow = 4)
+
+B4 = matrix(c(92,87,103,78,83,141,105,133,199,128,55,134,176,178,70,46,133,57,110,40), nrow = 4)
+
+
+bb = matrix(c(1,0,0,-1,1,0,0,-1,1,1,3,0), nrow = 3)
+cc = matrix(c(1,0,0,1,1,0,0,1,1,1,3,0), nrow = 3)
+
+P = matrix(c(-0.3759727, 0.7451145, 0.3873488, 0.2026283, -1.5745886, 1.6981947, 0.6640789, -0.1093166, -1.6812483, 1.5709652, 0.9123996, -0.3709249, 1.98611479, -1.00039030, 0.11500345, 0.05922811), nrow = 4)
+
+```
+
+
+```{r pressure, echo=FALSE}
+
+u <-matrix(c(-1,7,-5,4,0,4,-3,3,-1,8,-6,5), nrow = 3, byrow = T)
+
+u
+E21 = matrix(c(1,0,0,
+               0,1,0,
+               -1,0,1), nrow = 3, ncol=3,byrow=T)
+E21 %*% u
+
+E22 = matrix(c(1,0,0,
+               0,1,0,
+               0,-1/4,1), nrow = 3, ncol=3,byrow=T)
+E22 %*% E21 %*% u
+  
+E23 = matrix(c(1,0,0,
+               0,2,0,
+               0,0,1), nrow = 3, ncol=3,byrow=T)
+
+E23 %*% u
+
+library(pracma)
+
+cc = matrix(c(2,3,1,-2,1,-3,1,-1,2,3,7,0,1,2,3), nrow = 3)
+
+c = matrix(c(1,2,2,1,3,2,6,6,2,8,3,8,0,5,6), nrow = 5)
+
+m2 = matrix(c(1,1,4,0,0,-2,10,4,-3,0,-4,-1,0,0,-7,0,0,0,0,0), nrow = 4)
+
+R = matrix(c(1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,2,0,0,1), nrow = 6) 
+  
+P = matrix(c(2.431,-0.417,-0.148,1.412,0.672,-0.222,2.077,2.035,-0.097,1.264,3.125,-0.148,0.314,0.473,0.838, 1,1,1), nrow = 3) 
+
+```
+
+##Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r pressure, week 7}
+#Outer product
+library(pracma)
+
+a = matrix(c(runif(4)), nrow = 4)# a.k.a cbind(runif())
+a
+
+b = matrix(c(runif(4)), nrow = 4)
+b
+
+OP = a %*% t(b)
+
+rref(OP)
+round(rref(OP))
+
+#inner product
+t(a) %*% b
+
+#Angle between two vectors - inner product (x, y)/norm(x)*norm(y)
+
+x = matrix(c(1,1,1,1,1,0), nrow = 6)
+y = matrix(c(1,1,1,1,1,1), nrow = 6)
+
+x
+y
+t(x) %*% y/ (norm(x,"2")* norm(y, "2"))
+
+acos(t(x) %*% y/ (norm(x,"2")* norm(y, "2"))) #radians
+
+acos(t(x) %*% y/ (norm(x,"2")* norm(y, "2"))) * 180/pi #degrees
+
+
+#Orthogonality
+
+xx = matrix(c(1,-2,3,-1), nrow = 4)
+yy = matrix(c(4,1,-2,-4), nrow = 4)
+
+t(xx) %*% yy
+
+uu = matrix(c(4, -2), nrow = 2)
+ux = matrix(c(1, 2), nrow = 2)
+t(uu) %*% ux
+
+#orthonomality
+
+u1 = matrix(c(1, -1, 0), nrow = 3)
+u2 = matrix(c(1, 1, 1), nrow = 3)
+u3 = matrix(c(-1, -1, 2), nrow = 3)
+
+t(u1) %*% u2
+t(u1) %*% u3
+t(u2) %*% u3
+
+# cheking for orthonormal set? The result should be 1
+
+norm(u1, "2")
+norm(u2, "2")
+norm(u3, "2")
+
+#to make orthonormal divide the vector by its norm
+
+u1 = u1/norm(u1, "2")
+norm(u1, "2")
+
+#testing orthonormality and linear independence
+
+M = matrix(runif(100), ncol=10)
+rref(M)
+
+#Checking for orthogonality
+
+t(M[,1]) %*% M[,2]
+
+#Orthogonal matrices a X a-1 or a-1 X a = I
+
+aaa = matrix(c(2,1,2,-2,2,1,1,2,-2)/3, nrow = 3)
+
+aaa %*% t(aaa)
+t(aaa) %*% (aaa)
+
+#example 2
+
+aab = matrix(c(1,0,1,2,4,6,3,5,1), nrow = 3)
+
+aab %*% t(aab)
+t(aab) %*% (aab)
+
+#Gram-Schmidt procedure
+
+#coordinates
+
+n = matrix(c(1/sqrt(2),-1/sqrt(2), 0, 1/sqrt(3),1/sqrt(3),1/sqrt(3), -1/sqrt(6),-1/sqrt(6), 2/sqrt(6)), nrow = 3)
+
+solve (n, c(1,2,3))
+n %*% t(n)
+round(n %*% t(n))
+b(c(1,2,3) %*% n)
+
+
+#checking for orthogonality
+
+xx1 = matrix(c(1,0,0,-1), nrow = 4)
+xx2 = matrix(c(1,2,0,-1), nrow = 4)
+xx3 = matrix(c(3,1,1,-1), nrow = 4)
+
+#step1: first column normalised by itself
+
+#step 2: substracting projection of x2 unto ui
+
+
+#step 3: substracting projection of x3 from x2 unto ui and normalise
+
+#perform Gram-Schmidt of the following
+
+bb1 = matrix(c(1,2,1,0,1,0,1,0,3), nrow = 3)
+
+#checking if its orthonormal
+bb1 %*% t(bb1)
+uu1 = bb1[,1]/norm(bb1[,1], "2")
+uu1 
+norm(uu1, "2")
+
+#step 2: substracting projection of x2 unto ui
+uu2 = bb1[,2] - bb1[,2] %*% uu1 %*% uu1 
+#normalise
+uu2 = c(uu2)/norm(uu2, "2")
+
+uu3 = bb1[,3] - bb1[,3] %*% uu1 %*% uu1 - bb1[,3] %*% uu2 %*% uu2
+#normalise
+uu3 = c(uu3) / norm(uu3, "2")
+u_final = cbind(uu1,uu2,uu3)
+u_final
+
+#verifying that it is orthonormal
+
+round(u_final %*% t(u_final))
+
+##QR Factorization A = QR
+
+A = matrix(c(1,1,0,1,0,1,0,1,1), nrow = 3)
+A
+
+#perform Gram-Schmidt to obtain Q
+
+#checking if its orthonormal
+A %*% t(A)
+uu1 = A[,1]/norm(A[,1], "2")
+uu1
+#step 2: substracting projection of x2 unto ui
+uu2 = A[,2] - A[,2] %*% uu1 %*% uu1 
+#normalise
+uu2 = c(uu2)/norm(uu2, "2")
+
+uu3 = A[,3] - A[,3] %*% uu1 %*% uu1 - A[,3] %*% uu2 %*% uu2
+#normalise
+uu3 = c(uu3) / norm(uu3, "2")
+
+Q = cbind(uu1,uu2,uu3)
+Q
+#verifying that it is orthonormal
+
+round(Q %*% t(Q))
+
+#finding R - upper triangular matrix R = Q transpose *A
+
+R = t(Q) %*% A
+
+#Veriying QR factorization by solving back for A = QR
+
+round(Q %*% R)
+
+
+```
+
+
+```{r pressure, week 8}
+
+#determinants, permutations, PA = LU
+
+PP = matrix(c(1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1), nrow = 4)
+
+AA = matrix(c(1,0,0,0,2,0,7,0,4,0,2,6,5,2,9,4), nrow = 4)
+
+PP %*% AA
+
+PP2 = matrix(c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0), nrow = 4)
+
+PP2 %*% AA
+
+PP2 %*% PP %*% AA
+
+ddd = matrix(c(1,2,-2,3,1,-6,2,4,-4), nrow = 3)
+det(ddd)
+
+d33 = matrix(c(1,-2,1,-2), nrow = 2)
+
+d34 = matrix(c(2,-2,1,-1), nrow = 2)
+
+m = t(matrix(c(rref(d33)), nrow = 2))
+n = t(matrix(c(rref(d34)), nrow = 2))
+
+# Quadratic Formula In R:
+
+# Reference: http://stackoverflow.com/questions/15589601/print-string-and-variable-contents-on-the-same-line-in-r
+
+# Quadratic equation form of ax^2 + bx + c
+
+# Create quadratic formula function:
+
+quadraticRoots <- function(a, b, c) {
+
+  print(paste0("You have chosen the quadratic equation ", a, "x^2 + ", b, "x + ", c, "."))
+
+  discriminant <- (b^2) - (4*a*c)
+
+  if(discriminant < 0) {
+    return(paste0("This quadratic equation has no real numbered roots."))
+  }
+  else if(discriminant > 0) {
+    x_int_plus <- (-b + sqrt(discriminant)) / (2*a)
+    x_int_neg <- (-b - sqrt(discriminant)) / (2*a)
+
+    return(paste0("The two x-intercepts for the quadratic equation are ",
+                  format(round(x_int_plus, 5), nsmall = 5), " and ",
+                  format(round(x_int_neg, 5), nsmall = 5), "."))
+  }
+  else #discriminant = 0  case
+    x_int <- (-b) / (2*a)
+    return(paste0("The quadratic equation has only one root. This root is ",
+                  x_int))
+}
+
+#calling fuction
+quadraticRoots(1,3,2)
+
+
+
+###power iteration algorithm
+powerIter = function(A, threshold) {
+  x <- runif(nrow(A))
+  dd <- 1E6
+  
+  while (dd > threshold) {
+    x_k <- A %*% x
+    x_k <- x_k/norm(x_k)
+    dd <- norm(abs(as.vector(x_k) - as.vector(x)))
+    x <- x_k
+  }
+  return(x)
+}
+
+A <- matrix(c(runif(100)), nrow = 10)
+#qr.Q(qr(matrix(rnorm(100),10)))
+
+
+eigen(A)$values
+
+#calling the fucntion
+v = powerIter(A, 1E6)
+
+A %*% v
+
+#verifying the stretching factor
+4.101154201 * v
+
+
+#week 8 verify eigenvector
+
+v = matrix(c(1/sqrt(2), -1/sqrt(2)), nrow=2)
+AAAA = matrix(c(0,-2,1,-3), nrow = 2)
+           
+```
+
+
+```{r week 9}
+
+#SVD
+A = matrix(c(3,2,-1,7,5,1,2,0,9,3,0,6), ncol = 3)
+
+## SVD step  ( note  the  ’nu ’  and  ’ nv ’  parameters ,## which  specify  the  number  of  left  and  right## singular  vectors)
+
+A.svd <− svd(A, nu =4, nv =3)
+
+A.svd
+
+#relationship between AAtranspose and U
+
+AAT = A %*% t(A)
+AAT.eigen = eigen(AAT)
+
+AAT.eigen$vectors
+
+A.svd$u
+
+AAt.eigen$vectors
+
+A.svd$u
+
+#eigenvalues of A*t(A) and their relationship with singular values
+
+AAT.eigen$values
+
+A.svd$d^2
+
+#eigen vectors t(A)A
+
+ATA = t(A) %*% A
+ATA.eigen = eigen(ATA)
+ATA.eigen$vectors
+
+A.svd$v
+
+# bringing back matrix A. We build a diagnonal sigma matrix, as R gives the singular values in a vector
+S = diag(A.svd$d, nrow = 4, ncol = 3)
+rebuiltA = A.svd$u %*% S %*% t(A.svd$v)
+rebuiltA
+
+#low-rank approximation
+K = 2
+bestRankA = A.svd$u[,1:k] %*% S[1:k,1:k] %*% t(A.svd$v[,1:k])
+bestRankA
+
+A
+
+norm(bestRankA, A, "F")
+
+norm(bestRankA, A, "F")/norm(A, "F")
+
+#checking the rank of the matrix
+
+require(pracma)
+rref(bestRankA)
+
+## 10 x10  matrix  with  uniformly  distributed## random  numbers>
+A <− matrix(runif(100), ncol=10)
+
+## print  the  condition  number  of  the  matrix## using  the  ’ cond ’  function
+
+require(pracma)
+
+cond(A)
+
+## calculate  the  condition  number  using  the SVD
+
+duv<− svd(A)
+cn<−max(duv$d)/min(duv$d)
+
+## compare  the  two  condition  numbers
+cn 
+cn = cond(A)
+
+# singular  matrix  (last  row  is  2x  first  row )
+A <− matrix(c(1,2,3,4,5,6,2,4,6), byrow=TRUE, ncol=3)
+
+## SVD of A
+duv <−svd(A)
+cn<−max(duv$d)/min(duv$d)
+cn
+
+A.centered<−as.matrix(scale(A, center=TRUE, scale=FALSE))
+
+prcomp(A.centered)$rotation
+
+svd(A.centered)$v
+
+#information retrieval
+
+D<−matrix(c(1,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1),ncol=5)
+
+D.svd<−svd(D)
+
+D.svd$d
+
+#two rank approximation of the matrix D
+S<− diag(D.svd$d)
+D.2rank<−D.svd$u[ ,1:2] %∗% S[1:2, 1:2] %∗% t(D.svd$v[,1:2])
+D.2rank
+
+#checking if matrix V is a V matrix of an SVD
+
+V = matrix(c(1,2,1,2,4,7,1,5,7), nrow = 3)
+
+```
+
+
+```{r week 10}
+#Kabsch algorithm 
+
+#K = matrix(c(0.9436647, 0.4276539, 0.5184129, 0.15206086, 0.02171237, 0.52259949), nrow = 3)
+
+#L = matrix(c(-0.2226757, 0.2752792, -0.1468278, 0.46578866, 0.04818397, -0.19337368), nrow = 3)
+
+
+K = matrix(c(1.00, 0.52, 0.59, 0.19, 0.08, 0.6), nrow = 3)
+
+L = matrix(c(-0.19, 0.34, -0.06, 0.53, 0.13, -0.15), nrow = 3)
+
+#superpose K unto L
+plot(K, pch=15:17, ylim=c(-1,1), xlim=c(-1,1), xlab ="x", ylab="y", cex=2)
+points(L, pch=15:17, col="red", cex=2)
+
+Kprime = K
+Kprime[,1] = K[,1] - mean(K[,1])
+
+Kprime[,2] = K[,2] - mean(K[,2])
+
+mean(Kprime[,1])
+
+mean(Kprime[,2])
+
+Lprime = L
+Lprime[,1] = L[,1] - mean(L[,1])
+
+Lprime[,2] = L[,2] - mean(L[,2])
+
+mean(Lprime[,1])
+
+mean(Lprime[,2])
+
+covarianceMatrix = t(Kprime) %*% Lprime
+
+dim(covarianceMatrix)
+
+U = svd(covarianceMatrix)$u
+
+U
+V = svd(covarianceMatrix)$v
+
+V
+D = matrix(diag(2), ncol=2)
+D
+
+D[2,2] = det(U %*% t(V))
+D
+
+R = U %*% D %*% t(V)
+R
+
+Ksup = Kprime %*% R
+Ksup
+
+Lprime
+
+plot(Kprime, pch=15:17, ylim=c(-1,1), xlim=c(-1,1), xlab ="x", ylab="y", cex=2)
+points(Lprime, pch=15:17, col="red", cex=2)
+
+
+plot(Ksup, pch=15:17, ylim=c(-1,1), xlim=c(-1,1), xlab ="x", ylab="y", cex=2)
+points(Lprime, pch=15:17, col="red", cex=2)
+
+Err = norm((Ksup - Lprime), "2")  
+Err
+
+#Basis spanned by S
+
+h = matrix(c(3,3,2), nrow = 3)
+h1 = matrix(c(1,2,3), nrow = 3)
+h2 = matrix(c(7,8,7), nrow = 3)
+
+S = matrix(c(3,3,2,1,2,3,7,8,7), nrow = 3)
+
+rref(S)
+
+```
+
+
+
